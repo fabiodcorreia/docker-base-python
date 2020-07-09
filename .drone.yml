@@ -1,6 +1,6 @@
 kind: pipeline
 type: docker
-name: build-test-build
+name: build-test
 
 platform:
   os: linux
@@ -39,21 +39,17 @@ trigger:
 steps:
   - name: base_python_test
     image: fabiodcorreia/base-python:test
-  #  ports: [ 80 ]
     detach: true
     pull: always
     environment:
       PUID: "1000"
       PGID: "1000"
-
-  #- name: test image
-  #  image: python:2.7.18-alpine
-  #  commands:
-  #    - sleep 60
-  #    - sh ./test/start.sh
+    commands:
+      - sleep 60
+      - sh ./test/start.sh
 
 depends_on:
-  - build-test-build
+  - build-test
 
 ---
 kind: pipeline

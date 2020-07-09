@@ -1,4 +1,4 @@
-FROM fabiodcorreia/base-alpine:1.0.0
+FROM fabiodcorreia/base-alpine:1.0.1
 
 ARG BUILD_DATE
 ARG VERSION
@@ -12,9 +12,11 @@ RUN \
       python3 && \
   echo "**** install pip packages ****" && \
     pip install --no-cache-dir -U pip && \
-    pip install -U \
-      virtualenv && \
- echo "**** clean up ****" && \
-  rm -rf \
-	  /root/.cache \
-	  /tmp/*
+    pip install -U wheel && \
+  echo "**** clean up ****" && \
+    rm -rf \
+	    /root/.cache \
+	    /tmp/* &&\
+  echo "**** make links ****" &&\
+    ln -sf /usr/bin/python3 /usr/bin/python && \
+    ln -sf /usr/bin/pip3 /usr/bin/pip
